@@ -377,6 +377,8 @@ Online I go by Cruzer. When I'm not racing a hackathon deadline, I'm usually sen
           href: "https://www.youtube.com/watch?v=Ka1ObWIoYsI",
         },
       ],
+      video: "/videos/kwik.mp4",
+      poster: "/videos/kwik.jpg",
     },
     {
       title: "Shree Anna",
@@ -397,6 +399,7 @@ Online I go by Cruzer. When I'm not racing a hackathon deadline, I'm usually sen
           href: "https://github.com/areycruzer/ShreeAnnaMobile",
         },
       ],
+      image: "/videos/shree-anna.jpg",
     },
     {
       title: "DreamSpace",
@@ -412,6 +415,8 @@ Online I go by Cruzer. When I'm not racing a hackathon deadline, I'm usually sen
           href: "https://www.youtube.com/watch?v=bx4HNeQsdbE",
         },
       ],
+      video: "/videos/dreamspace.mp4",
+      poster: "/videos/dreamspace.jpg",
     },
     {
       title: "substrate-friction",
@@ -440,6 +445,8 @@ Online I go by Cruzer. When I'm not racing a hackathon deadline, I'm usually sen
           href: "https://www.youtube.com/watch?v=5RH1bvMIUKo",
         },
       ],
+      video: "/videos/substrate-friction.mp4",
+      poster: "/videos/substrate-friction.jpg",
     },
     {
       title: "DishEdit",
@@ -458,6 +465,8 @@ Online I go by Cruzer. When I'm not racing a hackathon deadline, I'm usually sen
           href: "https://youtube.com/shorts/_dE1RKzX3zs",
         },
       ],
+      video: "/videos/dishedit.mp4",
+      poster: "/videos/dishedit.jpg",
     },
     {
       title: "SkinAI",
@@ -484,6 +493,8 @@ Online I go by Cruzer. When I'm not racing a hackathon deadline, I'm usually sen
           href: "https://youtu.be/EaOpcie9nKY",
         },
       ],
+      video: "/videos/skinai.mp4",
+      poster: "/videos/skinai.jpg",
     },
   ],
   hackathons,
