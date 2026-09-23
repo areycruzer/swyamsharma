@@ -4,6 +4,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { paginate, normalizePage } from "@/lib/pagination";
 import { ChevronRight } from "lucide-react";
+import { notFound } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Blog",
@@ -28,6 +29,8 @@ export default async function BlogPage({
   searchParams: Promise<{ page?: string }>;
 }) {
   const { page: pageParam } = await searchParams;
+
+  if (allPosts.length === 0) notFound();
 
   const posts = allPosts;
   const sortedPosts = [...posts].sort((a, b) => {

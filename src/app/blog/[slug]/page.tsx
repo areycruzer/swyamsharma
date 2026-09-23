@@ -17,6 +17,8 @@ function getSortedPosts() {
   });
 }
 
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   return allPosts.map((post) => ({
     slug: post._meta.path.replace(/\.mdx$/, ""),
