@@ -7,6 +7,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { FlickeringGrid } from "@/components/magicui/flickering-grid";
+import { SiteFooter } from "@/components/site-footer";
+import { Analytics } from "@/components/analytics";
 
 const geist = Geist({
   subsets: ["latin"],
@@ -23,16 +25,17 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(DATA.url),
   title: {
-    default: DATA.name,
-    template: `%s | ${DATA.name}`,
+    default: "Swyam Sharma | Full-Stack & Agentic AI Engineer",
+    template: "%s | Swyam Sharma",
   },
-  description: DATA.description,
+  description: DATA.seoDescription,
+  alternates: { canonical: "/" },
   openGraph: {
-    title: `${DATA.name}`,
-    description: DATA.description,
+    title: "Swyam Sharma | Full-Stack & Agentic AI Engineer",
+    description: DATA.seoDescription,
     url: DATA.url,
-    siteName: `${DATA.name}`,
-    locale: "en_US",
+    siteName: "Swyam Sharma",
+    locale: "en_IN",
     type: "website",
   },
   robots: {
@@ -47,12 +50,9 @@ export const metadata: Metadata = {
     },
   },
   twitter: {
-    title: `${DATA.name}`,
     card: "summary_large_image",
-  },
-  verification: {
-    google: "",
-    yandex: "",
+    title: "Swyam Sharma | Full-Stack & Agentic AI Engineer",
+    description: DATA.seoDescription,
   },
 };
 
@@ -62,7 +62,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en-IN" suppressHydrationWarning>
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased relative",
@@ -70,7 +70,12 @@ export default function RootLayout({
           geistMono.variable
         )}
       >
-        <ThemeProvider attribute="class" defaultTheme="light">
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
           <TooltipProvider delayDuration={0}>
             <div className="absolute inset-0 top-0 left-0 right-0 h-[100px] overflow-hidden z-0">
               <FlickeringGrid
@@ -79,14 +84,17 @@ export default function RootLayout({
                 gridGap={2}
                 style={{
                   maskImage: "linear-gradient(to bottom, black, transparent)",
-                  WebkitMaskImage: "linear-gradient(to bottom, black, transparent)",
+                  WebkitMaskImage:
+                    "linear-gradient(to bottom, black, transparent)",
                 }}
               />
             </div>
-            <div className="relative z-10 max-w-2xl mx-auto py-12 pb-24 sm:py-24 px-6">
+            <div className="relative z-10 max-w-2xl mx-auto py-12 sm:py-24 px-6">
               {children}
+              <SiteFooter />
             </div>
             <Navbar />
+            <Analytics />
           </TooltipProvider>
         </ThemeProvider>
       </body>
