@@ -34,6 +34,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# portfolio gaps (private TODO list)
+PORTFOLIO_GAPS.md
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
