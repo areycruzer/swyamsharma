@@ -1,3 +1,5 @@
+"use client";
+
 import { Dock, DockIcon } from "@/components/magicui/dock";
 import { ModeToggle } from "@/components/mode-toggle";
 import { Separator } from "@/components/ui/separator";
@@ -14,14 +16,22 @@ export default function Navbar() {
     <div className="pointer-events-none fixed inset-x-0 bottom-4 z-30">
       <Dock className="z-50 pointer-events-auto relative h-14 p-2 w-fit mx-auto flex gap-2 border bg-card/90 backdrop-blur-3xl shadow-[0_0_10px_3px] shadow-primary/5">
         {DATA.navbar.map((item) => {
+          // Use plain <a> for /go/* and /resume to avoid Link prefetches
+          const isTracked =
+            item.href.startsWith("/go/") || item.href.startsWith("/resume");
           const isExternal = item.href.startsWith("http");
+          const openInNewTab = item.newTab || isExternal;
           return (
             <Tooltip key={item.href}>
               <TooltipTrigger asChild>
                 <a
                   href={item.href}
-                  target={isExternal ? "_blank" : undefined}
-                  rel={isExternal ? "noopener noreferrer" : undefined}
+                  target={openInNewTab ? "_blank" : undefined}
+                  rel={
+                    openInNewTab || isTracked
+                      ? "noopener noreferrer"
+                      : undefined
+                  }
                 >
                   <DockIcon className="rounded-3xl cursor-pointer size-full bg-background p-0 text-muted-foreground hover:text-foreground hover:bg-muted backdrop-blur-3xl border border-border transition-colors">
                     <item.icon className="size-full rounded-sm overflow-hidden object-contain" />
@@ -44,17 +54,42 @@ export default function Navbar() {
           className="h-2/3 m-auto w-px bg-border"
         />
         {Object.entries(DATA.contact.social)
-          .filter(([_, social]) => social.navbar)
+          .filter(([, social]) => social.navbar)
           .map(([name, social], index) => {
+            const isTracked =
+              social.url.startsWith("/go/") ||
+              social.url.startsWith("/resume");
             const isExternal = social.url.startsWith("http");
+            const isMail = social.url.startsWith("mailto:");
             const IconComponent = social.icon;
             return (
               <Tooltip key={`social-${name}-${index}`}>
                 <TooltipTrigger asChild>
                   <a
                     href={social.url}
-                    target={isExternal ? "_blank" : undefined}
-                    rel={isExternal ? "noopener noreferrer" : undefined}
+                    target={
+                      isExternal || isTracked ? "_blank" : undefined
+                    }
+                    rel={
+                      isExternal || isTracked
+                        ? "noopener noreferrer"
+                        : undefined
+                    }
+                    onClick={
+                      social.track
+                        ? () => {
+                            try {
+                              import("posthog-js").then((m) =>
+                                m.default.capture(social.track!, {
+                                  src: "dock",
+                                })
+                              );
+                            } catch {
+                              // PostHog not loaded
+                            }
+                          }
+                        : undefined
+                    }
                   >
                     <DockIcon className="rounded-3xl cursor-pointer size-full bg-background p-0 text-muted-foreground hover:text-foreground hover:bg-muted backdrop-blur-3xl border border-border transition-colors">
                       <IconComponent className="size-full rounded-sm overflow-hidden object-contain" />
